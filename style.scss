@@ -1,8 +1,15 @@
 // SCSS Colors
 $color-header : #C6CCCB;
-$color-nav: blue;
-$color-main: blue;
-$color-footer: blue;
+$color-nav: #CACBE0;
+$color-main: #39A8A5;
+$color-footer: #021D40;
+$color-clickable: #1018C2;
+
+$color-light: #E6EFFF;
+$color-dark: #181436;
+$color-sky: #77C1E6;
+$color-sun: #EBD686;
+$color-veryblue: #061599;
 
 // ANCHOR Base, Grid, Layout
 
@@ -23,6 +30,7 @@ nav {
 }
 
 main {
+    display: grid;
     grid-row: 2 / span 8;
     grid-column: span 12;
     background-color: rgba($color: red, $alpha: 0.5);
@@ -34,8 +42,9 @@ main {
 footer {
     grid-row: footer;
     grid-column: span 12;
+    background-color: $color-footer;
+    color: $color-light;
     display: flex;
-    background-color: darkgray;
     justify-content: center;
     align-items: center;
 }
@@ -61,7 +70,7 @@ footer {
 .nav__grid {
     display: grid;
     // grid-template-columns: 1fr 1fr 1fr; Columns aren't really needed here.
-    grid-template-rows: [selection] 40% [input] 60%;
+    grid-template-rows: [selection] 40% [input] 30% [search-options] 30%;
     height: 100%;
     width: 100%;
 }
@@ -104,11 +113,28 @@ footer {
 #locationInputDiv{
     display: flex;
     grid-row: input;
-    background-color: rgba($color: gray, $alpha: 1.0);
+    background-color: rgba($color: $color-nav, $alpha: 1.0);
     text-align: center;
     justify-content: center;
     align-items: center;
-    height: 100%;
+}
+
+#locationSearchType{
+    display: flex;
+    grid-row: search-options;
+    background-color: rgba($color: $color-nav, $alpha: 1.0);
+    justify-content: center;
+    align-items: center;
+
+    input {
+        display: none;
+    }
+
+    label {
+        border-radius: 10px;
+        padding: 5px;
+        background-color: $color-clickable;
+    }
 }
 
 // ANCHOR Styling

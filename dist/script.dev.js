@@ -4,7 +4,8 @@
 // Unsplash Key: JHO_3swVG5HRFrh4OfuEWVOCSgvzxb9XnNrPwDD4Uso
 var unsplashAPIKey = "&client_id=JHO_3swVG5HRFrh4OfuEWVOCSgvzxb9XnNrPwDD4Uso";
 var WeatherAPIKey = "57477b62efa91ed093f455c4b16426d8";
-var savedLocations = []; // Element Templates for DOM manipulation:
+var savedLocations = [];
+var searchType = ""; // Element Templates for DOM manipulation:
 
 var radioWrapperTemplate; // ANCHOR Initialization Functions
 
@@ -37,32 +38,38 @@ function addNewLocation() {
 
 
 function makeUnsplashQuery(query) {
-  var queryParameters = "&query=" + query;
+  var queryParameters = "&per_page=1&query=" + query;
   var unsplashURL = "https://api.unsplash.com/search/photos?" + queryParameters + unsplashAPIKey;
   $.ajax({
     url: unsplashURL,
     method: "GET"
   }).then(function (response) {
-    // console.log(response);
-    displayBackgroundImage(response.results[0].urls.full);
+    console.log(unsplashURL);
+    displayBackgroundImage(response.results[0].urls.small);
   });
 }
 
 function makeWeatherQuery(query) {
-  var queryParameters = "";
-  var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + query + "&exclude=minutely&appid=" + WeatherAPIKey;
+  var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "&exclude=minutely&appid=" + WeatherAPIKey;
   $.ajax({
     url: WeatherURL,
     method: "GET"
   }).then(function (response) {
-    console.log("Weather Response: ", response);
+    // console.log("Weather Response: ", response);
+    displayCurrentWeatherInfo(response);
   });
 } // ANCHOR Display and UI
 
 
 function displayBackgroundImage(src) {
-  console.log("Setting background image to: ", src);
+  // console.log("Setting background image to: ", src);
   $(mainBackgroundImg).attr("src", src);
+}
+
+function displayCurrentWeatherInfo(src) {
+  // let location = src.name;
+  // let temperature = src.main.temp;
+  console.log(src); // $("#weatherLocation").text()
 } // ANCHOR Event Listeners
 
 

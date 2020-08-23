@@ -21,7 +21,8 @@
     
     <!-- Main, Weather Info -->
     <main>
-      <h2 id="currentLocationName">City, State</h2>
+      <h2>City, State: <span id="weatherLocation"></span></h2>
+      <h2>Temperature: <span id="weatherTemperature"></span></h2>
     </main>
 
     <!-- Navigation and Location Selection -->
@@ -35,12 +36,24 @@
             <span></span>
           </label>
         </div>
+
         <!-- Input for new locations -->
         <div id="locationInputDiv">
-          <label for="">
+          <label>
             <h2>Track Weather In...</h2>
+            <input type="text" id="newLocationInput">
           </label>
-          <input type="text" id="newLocationInput">
+        </div>
+
+        <!-- Search Types -->
+        <div id="locationSearchType">
+          <h2>Sort By...</h2>
+          <input type="radio" name="locationSearchType" id="searchTypeId" value="id">
+          <label for="searchTypeId">City ID</label>
+          <input type="radio" name="locationSearchType" id="searchTypeName" value="q">
+          <label for="searchTypeName">City Name</label>
+          <input type="radio" name="locationSearchType" id="searchTypeZip" value="zip">
+          <label for="searchTypeZip">Postal Code</label>
         </div>
       </div>
     </nav>
