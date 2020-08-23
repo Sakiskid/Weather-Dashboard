@@ -5,31 +5,96 @@ header {
   grid-row: 1;
   grid-column: span 12;
   background-color: #C6CCCB;
+  opacity: 50%;
 }
 
 nav {
   grid-row: 10/span footer;
   grid-column: span 12;
-  background-color: green;
 }
 
 main {
   grid-row: 2/span 8;
   grid-column: span 12;
-  background-color: red;
+  background-color: rgba(255, 0, 0, 0.5);
+  border-radius: 20px;
+  margin: 10px 10px;
+  position: relative;
 }
 
 footer {
   grid-row: footer;
   grid-column: span 12;
-  background-color: orange;
+  display: flex;
+  background-color: darkgray;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(11, 1fr) [footer] 1fr;
+  grid-template-rows: repeat(11, 1fr) [footer] 0.5fr;
   height: 100vh;
+}
+
+#mainBackgroundImg {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: -5;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+}
+
+.nav__grid {
+  display: grid;
+  grid-template-rows: [selection] 40% [input] 60%;
+  height: 100%;
+  width: 100%;
+}
+
+#locationSelection {
+  grid-row: selection;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: white;
+}
+
+.locationRadioWrapper {
+  background-color: rgba(0, 0, 255, 0.5);
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border: 2px solid black;
+  border-bottom: 0px;
+  padding: 5px 5px 0px 5px;
+  margin: 0 5px;
+  height: 50%;
+  transition: background-color 0.5s ease-in-out;
+  transition: height 0.5s ease-in-out;
+}
+.locationRadioWrapper input {
+  display: none;
+}
+
+.locationRadioWrapper.checked {
+  background-color: blue;
+  height: 100%;
+}
+
+#locationInputDiv {
+  display: flex;
+  grid-row: input;
+  background-color: gray;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 h1 {

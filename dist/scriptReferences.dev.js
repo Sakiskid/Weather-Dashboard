@@ -6,4 +6,9 @@ wanted to try with this project so I can have one single
 place to change all of my variables. */
 // --------------------------------- //
 // ANCHOR References
-var newLocationInputEl = document.getElementById("newLocationInput"); // ANCHOR Variables (ints and such)
+var newLocationInputEl = document.getElementById("newLocationInput");
+var mainBackgroundImg = document.getElementById("mainBackgroundImg");
+var locationSelection = document.getElementById("locationSelection"); // The buttons for selecting location
+// ANCHOR Variables (ints and such)
+
+var gameTime = 500;

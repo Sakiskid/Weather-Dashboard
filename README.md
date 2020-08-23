@@ -18,3 +18,4 @@
 
 ### Things I learned
 - More experience with css and css grid in lieu of Bootstrap
+- Creating templates using an initializeElementTemplates() function, clone(), and remove()

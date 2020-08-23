@@ -1,36 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Dashboard</title>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+
+  <div class="container">
+    <img src="" alt="" id="mainBackgroundImg">
+
+    <!-- Header -->
+    <header>
+      <h1>Compact Weather Homepage</h1>
+    </header>
     
-    <div class="container">
-        <header><h1>Compact Weather Homepage</h1></header>
-        <nav>
-            <label for=""><h2>Track Weather In...</h2></label>
-            <input type="text" id="newLocationInput">
-            but
-            <div id="weatherSelection">
-                <button>Example Button 1</button>
-                <button>Example Button Austin</button>
-                <button>Example Button Denver</button>
-            </div>
-        </nav>
-        <main>
-            <h2 id="currentLocationName">City, State</h2>
+    <!-- Main, Weather Info -->
+    <main>
+      <h2 id="currentLocationName">City, State</h2>
+    </main>
 
-        </main>
-        <footer>Created by Tyler Smith</footer>
-    </div>
+    <!-- Navigation and Location Selection -->
+    <nav>
+      <div class="nav__grid">        
+        <!-- Location Selection -->
+        <div id="locationSelection">
+          <!-- This locationRadioWrapper is used as a template -->
+          <label class="locationRadioWrapper"> 
+            <input type="radio" name="radio-locations">
+            <span></span>
+          </label>
+        </div>
+        <!-- Input for new locations -->
+        <div id="locationInputDiv">
+          <label for="">
+            <h2>Track Weather In...</h2>
+          </label>
+          <input type="text" id="newLocationInput">
+        </div>
+      </div>
+    </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="scriptReferences.js"></script>
-    <script src="script.js"></script>
+    <!-- Footer with Contact Info -->
+    <footer>Created by Tyler Smith</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="utilities.js"></script>
+  <script src="scriptReferences.js"></script>
+  <script src="script.js"></script>
 </body>
+
 </html>
