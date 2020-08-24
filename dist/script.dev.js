@@ -31,7 +31,7 @@ function populateLocationButtons() {
 
   for (var i = 0; i < savedLocations.length; i++) {
     var newButton = radioWrapperTemplate.clone();
-    newButton.attr("data-location", savedLocations[i].Name);
+    newButton.attr("data-storage-key", savedLocations[i].Name);
     newButton.find("span").text(savedLocations[i].Name);
     displayCountryFlagOnLocationTab(newButton, savedLocations[i].Country);
     $(locationSelection).append(newButton);
@@ -58,7 +58,7 @@ function makeUnsplashQuery(query) {
   });
 }
 
-function getCoordsUsingWeatherQuery(query) {
+function createNewLocationUsingWeatherQuery(query) {
   // This function is used when making the initial query on a new location, and is used mainly to get the coords.
   // Luckily, OWM allows 60 request per minute.
   var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "&appid=" + WeatherAPIKey; // Create new location to return
@@ -99,9 +99,25 @@ function displayBackgroundImage(src) {
 }
 
 function displayCurrentWeatherInfo(src) {
-  // let location = src.name;
-  // let temperature = src.main.temp;
-  console.log(src); // $("#weatherLocation").text()
+  // Need to display:
+  // Temp, City Name, Date, Weather Icon, Humidity, Wind Speed, UV Index (with color code)
+  console.log(src); // weather condition icon: http://openweathermap.org/img/wn/CODE@2x.png
+
+  var main = src.current.weather[0].main;
+  var iconID = src.current.weather[0].id;
+  var temp = src.current.temp.day;
+  var humidity = src.current.humidity;
+  var windSpeed = src.current.wind_speed;
+  var uvi = src.current.uvi;
+  console.log(temperature);
+}
+
+function displayFiveDayWeatherInfo(src) {
+  var temperature = [];
+
+  for (var i = 0; i < 5; i++) {
+    temperature.push(src.daily[i].temp.day);
+  }
 }
 
 function displayCountryFlagOnLocationTab(tab, country) {
@@ -114,15 +130,31 @@ function displayCountryFlagOnLocationTab(tab, country) {
 newLocationInputEl.addEventListener('keyup', function (e) {
   if (e.key === 'Enter') {
     event.preventDefault();
-    getCoordsUsingWeatherQuery(newLocationInputEl.value);
+    createNewLocationUsingWeatherQuery(newLocationInputEl.value);
+    newLocationInputEl.value = "";
   }
 }); // When A Location Tab is pressed or changed
 
 $(document).on("change", ".locationRadioWrapper", function () {
-  var location = $(this).attr("data-location");
+  // Get Location, then set lat and lon for the coordsQuery.
+  var key = $(this).attr("data-storage-key");
+  var location;
+
+  for (var i = 0; i < savedLocations.length; i++) {
+    // Look for the respective location object
+    if (savedLocations[i].Name === key) {
+      location = savedLocations[i];
+    }
+  }
+
+  var lat = location.Latitude;
+  var lon = location.Longitude; // Checked class handling for css styling
+
   $(".locationRadioWrapper").removeClass("checked");
-  $(this).addClass("checked");
-  makeUnsplashQuery(location); // getCoordsUsingWeatherQuery(location);
+  $(this).addClass("checked"); // Queries
+
+  makeUnsplashQuery(location.Name);
+  makeWeatherQueryWithCoords(lat, lon);
 }); // When A new Location Search Type is clicked
 
 $("#locationSearchType").on("click", "label", function () {
