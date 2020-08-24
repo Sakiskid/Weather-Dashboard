@@ -48,8 +48,9 @@ function addNewLocation(newLocation) {
 
 
 function makeUnsplashQuery(query) {
-  var queryParameters = "&per_page=1&query=" + query;
+  var queryParameters = "&per_page=1&query=landscape " + query;
   var unsplashURL = "https://api.unsplash.com/search/photos?" + queryParameters + unsplashAPIKey;
+  console.log(unsplashURL);
   $.ajax({
     url: unsplashURL,
     method: "GET"
@@ -83,7 +84,7 @@ function createNewLocationUsingWeatherQuery(query) {
 
 function makeWeatherQueryWithCoords(lat, lon) {
   // Using the coords on a more in depth 
-  var URL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely&appid=" + WeatherAPIKey;
+  var URL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely&units=imperial&appid=" + WeatherAPIKey;
   $.ajax({
     url: URL,
     method: "GET"
@@ -101,15 +102,23 @@ function displayBackgroundImage(src) {
 function displayCurrentWeatherInfo(src) {
   // Need to display:
   // Temp, City Name, Date, Weather Icon, Humidity, Wind Speed, UV Index (with color code)
-  console.log(src); // weather condition icon: http://openweathermap.org/img/wn/CODE@2x.png
-
+  console.log(src);
   var main = src.current.weather[0].main;
-  var iconID = src.current.weather[0].id;
-  var temp = src.current.temp.day;
+  var iconID = src.current.weather[0].icon;
+  var iconURL = "http://openweathermap.org/img/wn/" + iconID + "@2x.png";
+  var temp = src.current.temp;
   var humidity = src.current.humidity;
   var windSpeed = src.current.wind_speed;
   var uvi = src.current.uvi;
-  console.log(temperature);
+  $("#weatherDate").text(); //TODO add date here
+
+  $("#weatherLocation").text(); //TODO add location
+
+  $("#weatherTemperature").text(temp);
+  $("#weatherIcon").attr("src", iconURL).attr("alt", main);
+  $("#weatherHumidity").text(humidity);
+  $("#weatherWindSpeed").text(windSpeed);
+  $("#weatherUVI").text(uvi);
 }
 
 function displayFiveDayWeatherInfo(src) {
