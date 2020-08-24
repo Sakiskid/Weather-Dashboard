@@ -13,6 +13,7 @@ function init(){
     if(savedLocations) savedLocations = JSON.parse(getLocalStorage("savedLocations"));
     initializeElementTemplates();
     populateLocationButtons();
+    loadDefaultLocation();
 }
 
 function initializeElementTemplates(){
@@ -32,12 +33,39 @@ function populateLocationButtons(){
     }
 }
 
+function loadDefaultLocation() {
+    if(localStorage.getItem("defaultLocation")) {
+        changeCurrentLocation(JSON.parse(localStorage.getItem("defaultLocation")));
+    }
+}
+
 // ANCHOR Location Management Functions
 function addNewLocation(newLocation) {
     // Add new location to saved locations, then set saved locations to localStorage
     savedLocations.push(newLocation);
     localStorage.setItem("savedLocations", JSON.stringify(savedLocations));
     populateLocationButtons();
+}
+
+function changeCurrentLocation (newLocation) {
+    // Get Location, then set lat and lon for the coordsQuery.
+    let key = $(newLocation).attr("data-storage-key");
+    let location;
+    for (let i = 0; i < savedLocations.length; i++) { // Look for the respective location object
+        if(savedLocations[i].Name === key) { 
+            location = savedLocations[i];
+        }
+    }
+    let lat = location.Latitude;
+    let lon = location.Longitude;
+
+    // Checked class handling for css styling
+    $(".locationRadioWrapper").removeClass("checked");
+    $(newLocation).addClass("checked");
+
+    // Queries
+    makeUnsplashQuery(location.Name);
+    makeWeatherQueryWithCoords(lat, lon);
 }
 
 // ANCHOR Queries
@@ -141,24 +169,7 @@ newLocationInputEl.addEventListener('keyup', function (e) {
 
 // When A Location Tab is pressed or changed
 $(document).on("change", ".locationRadioWrapper", function () {
-    // Get Location, then set lat and lon for the coordsQuery.
-    let key = $(this).attr("data-storage-key");
-    let location;
-    for (let i = 0; i < savedLocations.length; i++) { // Look for the respective location object
-        if(savedLocations[i].Name === key) { 
-            location = savedLocations[i];
-        }
-    }
-    let lat = location.Latitude;
-    let lon = location.Longitude;
-
-    // Checked class handling for css styling
-    $(".locationRadioWrapper").removeClass("checked");
-    $(this).addClass("checked");
-
-    // Queries
-    makeUnsplashQuery(location.Name);
-    makeWeatherQueryWithCoords(lat, lon);
+    changeCurrentLocation(this);
 });
 
 // When A new Location Search Type is clicked

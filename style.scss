@@ -128,15 +128,33 @@ footer {
     position: relative;
     padding: 5px 5px 0px 5px;
     margin: 0 5px;
-    height: 50%;
+    top: 50%;
+    height: 100%;
     z-index: 0;
 
     // Other
     transition: background-color .5s ease-in-out;
-    transition: height .5s ease-in-out;
+    transition: top .5s ease-in-out;
 
     input {
         display: none;
+    }
+
+    button {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        padding-bottom: 15px;
+        font-size: .6em;
+        font-weight: bolder;
+        z-index: -1;
+        // Style
+        background-color: $color-nav;
+        border: none;
+        border-top: 2px solid black;
+        text-align: center;
     }
 }
 
@@ -149,7 +167,7 @@ footer {
 
 .locationRadioWrapper.checked {
     background-color: rgba($color: $color-clickable, $alpha: 1.0);
-    height: 100%;
+    top: 0%;
 }
 
 #locationInputDiv{
@@ -159,6 +177,7 @@ footer {
     text-align: center;
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 #locationSearchType{
