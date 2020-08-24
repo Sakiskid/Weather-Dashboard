@@ -11,45 +11,67 @@ $color-sky: #77C1E6;
 $color-sun: #EBD686;
 $color-veryblue: #061599;
 
+$font-alata: 'Alata', sans-serif;
+$font-roboto-slab: 'Roboto Slab', serif;
+
+@mixin pseudo-element {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    border-radius: inherit;
+}
+
 // ANCHOR Base, Grid, Layout
 
 header {
+    // Style
+    background-color: $color-header;
+    font-family: $font-roboto-slab;
+    font-weight: 200;
+    opacity: 50%;
+    // Grid
     display: flex;
     height: 100%;
     align-items: center;
-    // Grid
     grid-row: 1;
     grid-column: span 12;
-    background-color: $color-header;
-    opacity: 50%;
 }
 
 nav {
+    // Grid
     grid-row: 10 / span footer;
     grid-column: span 12;
 }
 
 main {
-    display: grid;
-    grid-row: 2 / span 8;
-    grid-column: 2 / span 10;
+    // Style
     background-color: rgba($color: $color-sky, $alpha: 0.5);
     border-radius: 20px;
     margin: 10px 10px;
     position: relative;
+    // Grid
+    display: grid;
+    grid-row: 2 / span 8;
+    grid-column: 2 / span 10;
 }
 
 footer {
-    grid-row: footer;
-    grid-column: span 12;
+    // Style
     background-color: $color-footer;
     color: $color-light;
     display: flex;
     justify-content: center;
     align-items: center;
+    // Grid
+    grid-row: footer;
+    grid-column: span 12;
 }
 
 .container {
+    // Grid
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(11, 1fr) [footer] 0.5fr;
@@ -57,10 +79,12 @@ footer {
 }
 
 #mainBackgroundImg {
+    // Layout
     position: fixed;
     height: 100%;
     width: 100%;
     z-index: -5;
+    // Style
     filter: blur(8px);
     -webkit-filter: blur(8px);
 }
@@ -68,35 +92,46 @@ footer {
 // ANCHOR Navbar and Nav Grid
 
 .nav__grid {
+    // Grid
     display: grid;
-    // grid-template-columns: 1fr 1fr 1fr; Columns aren't really needed here.
     grid-template-rows: [selection] 40% [input] 30% [search-options] 30%;
     height: 100%;
     width: 100%;
 }
 
 #locationSelection {
-    grid-row: selection;
-    width: 100%;
-    height: 100%;
+    // Style
     display: flex;
     text-align: center;
     justify-content: center;
     align-items: flex-end;
     background-color: rgba($color: white, $alpha: 1.0);
+    // Grid
+    grid-row: selection;
+    width: 100%;
+    height: 100%;
 }
 
 .locationRadioWrapper {
-    background-color: rgba($color: blue, $alpha: 0.5);
-    position: relative;
+    // Background
+    background-image: none;
+    background-size: 150%;
+    background-position: -10px -20px;
+    // Style
+    font-family: $font-roboto-slab;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     border: 2px solid black;
     border-bottom: 0px;
+    
+    // Layout
+    position: relative;
     padding: 5px 5px 0px 5px;
     margin: 0 5px;
     height: 50%;
+    z-index: 0;
 
+    // Other
     transition: background-color .5s ease-in-out;
     transition: height .5s ease-in-out;
 
@@ -105,8 +140,15 @@ footer {
     }
 }
 
+.locationRadioWrapper::before{
+    // This element applies the overlay for the flag, to reduce it's opacity.
+    @include pseudo-element;
+    background-color: rgba($color: white, $alpha: 0.7);
+    z-index: -1;
+}
+
 .locationRadioWrapper.checked {
-    background-color: rgba($color: blue, $alpha: 1.0);
+    background-color: rgba($color: $color-clickable, $alpha: 1.0);
     height: 100%;
 }
 

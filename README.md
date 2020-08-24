@@ -13,6 +13,9 @@
 ## Features
 
 ##### Noteworthy:
+- Flags of country
+- Custom Images
+- Search Types
 
 ## Execution:
 
@@ -20,3 +23,5 @@
 - More experience with css and css grid in lieu of Bootstrap
 - Creating templates using an initializeElementTemplates() function, clone(), and remove()
 - Ended up putting addNewLocation() call into the getCoordsUsingWeatherQuery() function. I had to wait until ajax was done loading before calling the new location, otherwise it would return undefined. Really weird issue that took me a long time to figure out
+- Formatting and layout of stylesheet
+- Single line if statements dont need squigly brackets

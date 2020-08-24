@@ -10,7 +10,7 @@ var radioWrapperTemplate;
 
 // ANCHOR Initialization Functions
 function init(){
-    savedLocations = JSON.parse(getLocalStorage("savedLocations"));
+    if(savedLocations.length != 0) savedLocations = JSON.parse(getLocalStorage("savedLocations"));
     initializeElementTemplates();
     populateLocationButtons();
 }
@@ -26,6 +26,8 @@ function populateLocationButtons(){
         let newButton = radioWrapperTemplate.clone();
         newButton.attr("data-location", savedLocations[i].Name);
         newButton.find("span").text(savedLocations[i].Name);
+        displayCountryFlagOnLocationTab(newButton, savedLocations[i].Country);
+        
         $(locationSelection).append(newButton);
     }
 }
@@ -65,7 +67,7 @@ function getCoordsUsingWeatherQuery(query) {
     }).then(function(response){
         console.log("getCoordsUsingWeatherQuery response: ",response);
         newLocation.Name = response.name;
-        newLocation.Country = response.country;
+        newLocation.Country = response.sys.country;
         newLocation.CityID = response.id;
         newLocation.Latitude = response.coord.lat;
         newLocation.Longitude = response.coord.lon;
@@ -100,6 +102,13 @@ function displayCurrentWeatherInfo(src){
     console.log(src);
 
     // $("#weatherLocation").text()
+}
+
+function displayCountryFlagOnLocationTab(tab, country){
+    let flag = "url('https://www.countryflags.io/" + country + "/flat/64.png')"
+    console.log("flag: ", flag);
+    $(tab).css("background-image", flag);
+    console.log("background-image: ", $(tab).css("background-image"));
 }
 
 // ANCHOR Event Listeners
