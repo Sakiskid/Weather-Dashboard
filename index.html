@@ -14,8 +14,8 @@
 
 <body>
 
+  <img src="" alt="" id="mainBackgroundImg">
   <div class="container">
-    <img src="" alt="" id="mainBackgroundImg">
 
     <!-- Header -->
     <header>
@@ -24,13 +24,15 @@
     
     <!-- Main, Weather Info -->
     <main>
-      <h2>Date: <span id="weatherDate"></span></h2>
-      <h2>City, State: <span id="weatherLocation"></span></h2>
-      <h2>Temperature: <span id="weatherTemperature"></span></h2>
-      <img src="" alt="" id="weatherIcon">
-      <h2>Humidity: <span id="weatherHumidity"></span></h2>
-      <h2>Wind Speed: <span id="weatherWindSpeed"></span></h2>
-      <h2>UV Index: <span id="weatherUVI"></span></h2>
+      <div id="main__grid-daily">
+        <h2 id="weatherDate">Date: <span></span></h2>
+        <h2 id="weatherLocation">City, State: <span></span></h2>
+        <h2 id="weatherTemperature"><span></span></h2>
+        <img src="" alt="" id="weatherIcon">
+        <h2 id="weatherHumidity">Humidity: <span></span></h2>
+        <h2 id="weatherWindSpeed">Wind Speed: <span></span></h2>
+        <h2 id="weatherUVI">UV Index: <span></span></h2>
+      </div>
     </main>
 
     <!-- Navigation and Location Selection -->
@@ -42,7 +44,7 @@
           <label class="locationRadioWrapper"> 
             <input type="radio" name="radio-locations">
             <span></span>
-            <button>Make Default</button>
+            <button onclick="setDefaultLocation(this)">Make Default</button>
           </label>
         </div>
 

@@ -25,7 +25,8 @@ function populateLocationButtons(){
     $(locationSelection).empty();
     for(let i = 0; i < savedLocations.length; i++){
         let newButton = radioWrapperTemplate.clone();
-        newButton.attr("data-storage-key", savedLocations[i].Name);
+        newButton.attr("data-name", savedLocations[i].Name);
+        newButton.attr("id", "location-" + savedLocations[i].Name);
         newButton.find("span").text(savedLocations[i].Name);
         displayCountryFlagOnLocationTab(newButton, savedLocations[i].Country);
         
@@ -35,7 +36,7 @@ function populateLocationButtons(){
 
 function loadDefaultLocation() {
     if(localStorage.getItem("defaultLocation")) {
-        changeCurrentLocation(JSON.parse(localStorage.getItem("defaultLocation")));
+        changeCurrentLocation(localStorage.getItem("defaultLocation"));
     }
 }
 
@@ -47,12 +48,11 @@ function addNewLocation(newLocation) {
     populateLocationButtons();
 }
 
-function changeCurrentLocation (newLocation) {
+function changeCurrentLocation (newLocationName) {
     // Get Location, then set lat and lon for the coordsQuery.
-    let key = $(newLocation).attr("data-storage-key");
     let location;
     for (let i = 0; i < savedLocations.length; i++) { // Look for the respective location object
-        if(savedLocations[i].Name === key) { 
+        if(savedLocations[i].Name === newLocationName) { 
             location = savedLocations[i];
         }
     }
@@ -61,18 +61,22 @@ function changeCurrentLocation (newLocation) {
 
     // Checked class handling for css styling
     $(".locationRadioWrapper").removeClass("checked");
-    $(newLocation).addClass("checked");
+    $("#location-"+ location.Name).addClass("checked");
 
     // Queries
     makeUnsplashQuery(location.Name);
     makeWeatherQueryWithCoords(lat, lon);
 }
 
+function setDefaultLocation(newLocation) {
+    console.log(newLocation);
+    localStorage.setItem("defaultLocation", $(newLocation).parent().attr("data-name"));
+}
+
 // ANCHOR Queries
 function makeUnsplashQuery(query){
     var queryParameters = "&per_page=1&query=landscape " + query;
     var unsplashURL = "https://api.unsplash.com/search/photos?" + queryParameters + unsplashAPIKey;
-    console.log(unsplashURL);
 
     $.ajax({
         url: unsplashURL,
@@ -131,19 +135,19 @@ function displayCurrentWeatherInfo(src) {
 
     let main = src.current.weather[0].main;
     let iconID = src.current.weather[0].icon;
-    let iconURL = "http://openweathermap.org/img/wn/" + iconID + "@2x.png";
-    let temp = src.current.temp;
+    let iconURL = "http://openweathermap.org/img/wn/" + iconID + "@4x.png";
+    let temp = Math.floor(src.current.temp);
     let humidity = src.current.humidity;
     let windSpeed = src.current.wind_speed;
     let uvi = src.current.uvi;
 
-    $("#weatherDate").text(); //TODO add date here
-    $("#weatherLocation").text(); //TODO add location
-    $("#weatherTemperature").text(temp);
+    $("#weatherDate span").text(); //TODO add date here
+    $("#weatherLocation span").text(); //TODO add location
+    $("#weatherTemperature span").text(temp + "°");
     $("#weatherIcon").attr("src", iconURL).attr("alt", main);
-    $("#weatherHumidity").text(humidity);
-    $("#weatherWindSpeed").text(windSpeed);
-    $("#weatherUVI").text(uvi);
+    $("#weatherHumidity span").text(humidity);
+    $("#weatherWindSpeed span").text(windSpeed);
+    $("#weatherUVI span").text(uvi);
 }
 
 function displayFiveDayWeatherInfo(src) {
@@ -169,7 +173,7 @@ newLocationInputEl.addEventListener('keyup', function (e) {
 
 // When A Location Tab is pressed or changed
 $(document).on("change", ".locationRadioWrapper", function () {
-    changeCurrentLocation(this);
+    changeCurrentLocation($(this).attr("data-name"));
 });
 
 // When A new Location Search Type is clicked

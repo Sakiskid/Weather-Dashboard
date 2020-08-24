@@ -23,6 +23,9 @@ var locationObjectTemplate = {
     CityID: "0"
 }
 
+// String for saving IDs onto the location tabs
+var locationIDstring = "locationTab";
+
 // ANCHOR Variables (ints and such)
 
 var gameTime = 500;

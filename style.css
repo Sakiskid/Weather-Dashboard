@@ -1,8 +1,9 @@
 header {
-  background-color: #C6CCCB;
+  background-color: #021D40;
   font-family: "Roboto Slab", serif;
   font-weight: 200;
   opacity: 50%;
+  color: #E6EFFF;
   display: flex;
   height: 100%;
   align-items: center;
@@ -13,6 +14,7 @@ header {
 nav {
   grid-row: 10/span footer;
   grid-column: span 12;
+  width: 100%;
 }
 
 main {
@@ -20,7 +22,6 @@ main {
   border-radius: 20px;
   margin: 10px 10px;
   position: relative;
-  display: grid;
   grid-row: 2/span 8;
   grid-column: 2/span 10;
 }
@@ -44,11 +45,17 @@ footer {
 
 #mainBackgroundImg {
   position: fixed;
-  height: 100%;
-  width: 100%;
+  height: 105%;
+  width: 105%;
   z-index: -5;
+  left: -2%;
   filter: blur(8px);
   -webkit-filter: blur(8px);
+  background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .nav__grid {
@@ -63,9 +70,8 @@ footer {
   text-align: center;
   justify-content: center;
   align-items: flex-end;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0);
   grid-row: selection;
-  width: 100%;
   height: 100%;
 }
 
@@ -153,6 +159,30 @@ footer {
   background-color: #EBD686;
 }
 
+#main__grid-daily {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: [header] 3fr [name] 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+#main__grid-daily #weatherLocation {
+  background-color: red;
+  grid-row: 2;
+  grid-column: 2/span 3;
+}
+#main__grid-daily #weatherTemperature {
+  grid-row: 1;
+  grid-column: 2/span 2;
+  display: flex;
+  font-size: 15vw;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+#main__grid-daily #weatherIcon {
+  grid-column: 4;
+}
 h1 {
   font-size: 5vw;
   width: 100%;
