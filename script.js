@@ -10,7 +10,7 @@ var radioWrapperTemplate;
 
 // ANCHOR Initialization Functions
 function init(){
-    if(savedLocations.length != 0) savedLocations = JSON.parse(getLocalStorage("savedLocations"));
+    if(savedLocations) savedLocations = JSON.parse(getLocalStorage("savedLocations"));
     initializeElementTemplates();
     populateLocationButtons();
 }
@@ -106,9 +106,7 @@ function displayCurrentWeatherInfo(src){
 
 function displayCountryFlagOnLocationTab(tab, country){
     let flag = "url('https://www.countryflags.io/" + country + "/flat/64.png')"
-    console.log("flag: ", flag);
     $(tab).css("background-image", flag);
-    console.log("background-image: ", $(tab).css("background-image"));
 }
 
 // ANCHOR Event Listeners
