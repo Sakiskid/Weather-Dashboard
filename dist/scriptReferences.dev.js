@@ -11,10 +11,13 @@ var mainBackgroundImg = document.getElementById("mainBackgroundImg");
 var locationSelection = document.getElementById("locationSelection"); // The buttons for selecting location
 // Local Storage Location Object
 
-var locationObject = {
+var savedLocations = [];
+var locationObjectTemplate = {
   Name: "N/A",
+  Country: "N/A",
   Latitude: "0",
-  Longitude: "0"
+  Longitude: "0",
+  CityID: "0"
 }; // ANCHOR Variables (ints and such)
 
 var gameTime = 500;

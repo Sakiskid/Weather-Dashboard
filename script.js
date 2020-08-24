@@ -3,15 +3,14 @@
 
 var unsplashAPIKey = "&client_id=JHO_3swVG5HRFrh4OfuEWVOCSgvzxb9XnNrPwDD4Uso";
 var WeatherAPIKey = "57477b62efa91ed093f455c4b16426d8";
-var savedLocations = [];
-var searchType = "";
+var searchType = "q"; // Default search type
 
 // Element Templates for DOM manipulation:
 var radioWrapperTemplate;
 
 // ANCHOR Initialization Functions
 function init(){
-    savedLocations = JSON.parse(getLocalStorage("savedLocations", "Austin"));
+    savedLocations = JSON.parse(getLocalStorage("savedLocations"));
     initializeElementTemplates();
     populateLocationButtons();
 }
@@ -22,19 +21,21 @@ function initializeElementTemplates(){
 }
 
 function populateLocationButtons(){
+    $(locationSelection).empty();
     for(let i = 0; i < savedLocations.length; i++){
         let newButton = radioWrapperTemplate.clone();
-        newButton.attr("data-location", savedLocations[i]);
-        newButton.find("span").text(savedLocations[i]);
+        newButton.attr("data-location", savedLocations[i].Name);
+        newButton.find("span").text(savedLocations[i].Name);
         $(locationSelection).append(newButton);
     }
 }
 
 // ANCHOR Location Management Functions
-function addNewLocation() {
+function addNewLocation(newLocation) {
     // Add new location to saved locations, then set saved locations to localStorage
-    savedLocations.push(newLocationInputEl.value);
+    savedLocations.push(newLocation);
     localStorage.setItem("savedLocations", JSON.stringify(savedLocations));
+    populateLocationButtons();
 }
 
 // ANCHOR Queries
@@ -46,21 +47,31 @@ function makeUnsplashQuery(query){
         url: unsplashURL,
         method: "GET"
     }).then(function(response){
-        console.log(unsplashURL);
         displayBackgroundImage(response.results[0].urls.small);
     });
 }
 
-function makeWeatherQuery(query) {
+function getCoordsUsingWeatherQuery(query) {
     // This function is used when making the initial query on a new location, and is used mainly to get the coords.
-    var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "appid=" + WeatherAPIKey;
+    // Luckily, OWM allows 60 request per minute.
+    var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "&appid=" + WeatherAPIKey;
     
+    // Create new location to return
+    let newLocation = { ...locationObjectTemplate };
+
     $.ajax({
         url: WeatherURL,
         method: "GET"
     }).then(function(response){
-        // console.log("Weather Response: ", response);
-        displayCurrentWeatherInfo(response);
+        console.log("getCoordsUsingWeatherQuery response: ",response);
+        newLocation.Name = response.name;
+        newLocation.Country = response.country;
+        newLocation.CityID = response.id;
+        newLocation.Latitude = response.coord.lat;
+        newLocation.Longitude = response.coord.lon;
+        addNewLocation(newLocation);
+    }).fail(function () {
+        console.log("getCoordsUsingWeatherQuery FAILED!");
     });
 }
 
@@ -92,21 +103,25 @@ function displayCurrentWeatherInfo(src){
 }
 
 // ANCHOR Event Listeners
+
+// When Enter is pressed on the input
 newLocationInputEl.addEventListener('keyup', function (e) {
     if (e.key === 'Enter') {
         event.preventDefault();
-        addNewLocation();
+        getCoordsUsingWeatherQuery(newLocationInputEl.value);
     }
 });
 
+// When A Location Tab is pressed or changed
 $(document).on("change", ".locationRadioWrapper", function () {
     let location = $(this).attr("data-location");
     $(".locationRadioWrapper").removeClass("checked");
     $(this).addClass("checked");
     makeUnsplashQuery(location);
-    makeWeatherQuery(location);
+    // getCoordsUsingWeatherQuery(location);
 });
 
+// When A new Location Search Type is clicked
 $("#locationSearchType").on("click", "label", function() {
     // Find the respective input of this label
     let targetid = $(this).attr("for");

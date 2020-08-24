@@ -14,10 +14,13 @@ var locationSelection = document.getElementById("locationSelection"); // The but
 
 // Local Storage Location Object
 
-var locationObject = {
+var savedLocations = [];
+var locationObjectTemplate = {
     Name: "N/A",
+    Country: "N/A",
     Latitude: "0",
     Longitude: "0",
+    CityID: "0"
 }
 
 // ANCHOR Variables (ints and such)
