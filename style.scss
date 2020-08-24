@@ -32,8 +32,8 @@ nav {
 main {
     display: grid;
     grid-row: 2 / span 8;
-    grid-column: span 12;
-    background-color: rgba($color: red, $alpha: 0.5);
+    grid-column: 2 / span 10;
+    background-color: rgba($color: $color-sky, $alpha: 0.5);
     border-radius: 20px;
     margin: 10px 10px;
     position: relative;
@@ -133,7 +133,12 @@ footer {
     label {
         border-radius: 10px;
         padding: 5px;
+        margin: 0 5px;
         background-color: $color-clickable;
+    }
+
+    input:checked ~ label {
+        background-color: $color-sun;
     }
 }
 

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather Dashboard</title>
+  <title>Minimalist Weather Dashboard</title>
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -16,7 +16,7 @@
 
     <!-- Header -->
     <header>
-      <h1>Compact Weather Homepage</h1>
+      <h1>Minimalist Weather Dashboard</h1>
     </header>
     
     <!-- Main, Weather Info -->
@@ -40,20 +40,26 @@
         <!-- Input for new locations -->
         <div id="locationInputDiv">
           <label>
-            <h2>Track Weather In...</h2>
-            <input type="text" id="newLocationInput">
+            <input type="text" id="newLocationInput" placeholder="Track Weather In...">
           </label>
         </div>
 
         <!-- Search Types -->
         <div id="locationSearchType">
-          <h2>Sort By...</h2>
-          <input type="radio" name="locationSearchType" id="searchTypeId" value="id">
-          <label for="searchTypeId">City ID</label>
-          <input type="radio" name="locationSearchType" id="searchTypeName" value="q">
-          <label for="searchTypeName">City Name</label>
-          <input type="radio" name="locationSearchType" id="searchTypeZip" value="zip">
-          <label for="searchTypeZip">Postal Code</label>
+          <!-- These are in separate divs so I can select them with input:checked -->
+          <!-- <h2>Sort By...</h2> -->
+          <div>
+            <input type="radio" name="locationSearchType" id="searchTypeId" value="id">
+            <label for="searchTypeId">City ID</label>
+          </div>
+          <div>
+            <input type="radio" name="locationSearchType" id="searchTypeName" value="q" checked>
+            <label for="searchTypeName">City Name</label>
+          </div>
+          <div>
+            <input type="radio" name="locationSearchType" id="searchTypeZip" value="zip">
+            <label for="searchTypeZip">Postal Code</label>
+          </div>
         </div>
       </div>
     </nav>

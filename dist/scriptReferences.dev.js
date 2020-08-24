@@ -9,6 +9,12 @@ place to change all of my variables. */
 var newLocationInputEl = document.getElementById("newLocationInput");
 var mainBackgroundImg = document.getElementById("mainBackgroundImg");
 var locationSelection = document.getElementById("locationSelection"); // The buttons for selecting location
-// ANCHOR Variables (ints and such)
+// Local Storage Location Object
+
+var locationObject = {
+  Name: "N/A",
+  Latitude: "0",
+  Longitude: "0"
+}; // ANCHOR Variables (ints and such)
 
 var gameTime = 500;

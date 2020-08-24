@@ -50,12 +50,24 @@ function makeUnsplashQuery(query) {
 }
 
 function makeWeatherQuery(query) {
-  var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "&exclude=minutely&appid=" + WeatherAPIKey;
+  // This function is used when making the initial query on a new location, and is used mainly to get the coords.
+  var WeatherURL = "https://api.openweathermap.org/data/2.5/weather?" + searchType + "=" + query + "appid=" + WeatherAPIKey;
   $.ajax({
     url: WeatherURL,
     method: "GET"
   }).then(function (response) {
     // console.log("Weather Response: ", response);
+    displayCurrentWeatherInfo(response);
+  });
+}
+
+function makeWeatherQueryWithCoords(lat, lon) {
+  // Using the coords on a more in depth 
+  var URL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=minutely&appid=" + WeatherAPIKey;
+  $.ajax({
+    url: URL,
+    method: "GET"
+  }).then(function (response) {
     displayCurrentWeatherInfo(response);
   });
 } // ANCHOR Display and UI
@@ -85,5 +97,11 @@ $(document).on("change", ".locationRadioWrapper", function () {
   $(this).addClass("checked");
   makeUnsplashQuery(location);
   makeWeatherQuery(location);
+});
+$("#locationSearchType").on("click", "label", function () {
+  // Find the respective input of this label
+  var targetid = $(this).attr("for");
+  var newVal = $("#" + targetid).val();
+  searchType = newVal;
 });
 init();
