@@ -24,6 +24,12 @@ $font-roboto-slab: 'Roboto Slab', serif;
     border-radius: inherit;
 }
 
+@mixin striped-bg {
+    background-image: url(./Assets/bg.jpg);
+    background-attachment: fixed;
+    opacity: 0.5;
+}
+
 // ANCHOR Base, Grid, Layout
 
 header {
@@ -33,10 +39,11 @@ header {
     font-weight: 200;
     opacity: 50%;
     color: $color-light;
-    // Grid
-    display: flex;
+    // Layout
     height: 100%;
     align-items: center;
+    // Grid
+    display: flex;
     grid-row: 1;
     grid-column: span 12;
 }
@@ -53,11 +60,22 @@ main {
     // Style
     background-color: rgba($color: $color-sky, $alpha: 0.5);
     border-radius: 20px;
-    margin: 10px 10px;
+    border: 2px inset $color-dark;
+    // Position
     position: relative;
-    // Grid Position
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    margin: 10px 10px;
+    // Grid 
     grid-row: 2 / span 8;
     grid-column: 2 / span 10;
+}
+
+main:before {
+    @include pseudo-element;
+    background-image: url(./Assets/bg.jpg);
+    opacity: 0.5;
 }
 
 footer {
@@ -87,9 +105,10 @@ footer {
     width: 105%;
     z-index: -5;
     left: -2%;
+    object-fit: cover;
     // Style
-    filter: blur(8px);
-    -webkit-filter: blur(8px);
+    filter: blur(6px);
+    -webkit-filter: blur(6px);
 
     background: no-repeat center center fixed; 
     -webkit-background-size: cover;
@@ -111,6 +130,7 @@ footer {
 #locationSelection {
     // Style
     display: flex;
+    position: relative;
     text-align: center;
     justify-content: center;
     align-items: flex-end;
@@ -118,6 +138,12 @@ footer {
     // Grid
     grid-row: selection;
     height: 100%;
+}
+
+#locationSelection::before {
+    @include pseudo-element;
+    border-bottom: 2px solid $color-footer;
+    top: -2px;
 }
 
 .locationRadioWrapper {
@@ -129,7 +155,7 @@ footer {
     font-family: $font-roboto-slab;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    border: 2px solid black;
+    border: 2px solid $color-footer;
     border-bottom: 0px;
     
     // Layout
@@ -159,10 +185,15 @@ footer {
         font-weight: bolder;
         z-index: -1;
         // Style
-        background-color: $color-nav;
         border: none;
         border-top: 2px solid black;
         text-align: center;
+    }
+
+    button::before {
+        @include pseudo-element;
+        @include striped-bg;
+        z-index: -1;
     }
 }
 
@@ -170,7 +201,7 @@ footer {
     // This element applies the overlay for the flag, to reduce it's opacity.
     @include pseudo-element;
     background-color: rgba($color: white, $alpha: 0.7);
-    z-index: -1;
+    z-index: -2;
 }
 
 .locationRadioWrapper.checked {
@@ -179,31 +210,51 @@ footer {
 }
 
 #locationInputDiv{
-    display: flex;
+    // Grid and Layout
+    position: relative;
     grid-row: input;
-    background-color: rgba($color: $color-nav, $alpha: 1.0);
-    text-align: center;
+    display: flex;
+    z-index: 5;
     justify-content: center;
     align-items: center;
-    z-index: 5;
+    // Style
+    text-align: center;
+    background-color: rgba($color: $color-nav, $alpha: 1.0);
+
+    input {
+        border: 2px ridge $color-footer;
+    }
+}
+
+#locationInputDiv::after {
+    @include pseudo-element;
+    @include striped-bg;
+    z-index: -2;
 }
 
 #locationSearchType{
-    display: flex;
     grid-row: search-options;
-    background-color: rgba($color: $color-nav, $alpha: 1.0);
+    position: relative;
+    display: flex;
+    z-index: 5;
     justify-content: center;
     align-items: center;
-
+    //Style
+    background-color: rgba($color: $color-nav, $alpha: 1.0);
+    
     input {
         display: none;
     }
-
+    
     label {
-        border-radius: 10px;
         padding: 5px;
         margin: 0 5px;
-        background-color: $color-clickable;
+        // Style
+        border-radius: 10px;
+        border: 2px ridge $color-footer;
+        background-color: $color-sky;
+        transition: background-color 0.5s ease-out;
+        color: $color-dark;
     }
 
     input:checked ~ label {
@@ -211,23 +262,40 @@ footer {
     }
 }
 
+#locationSearchType::after {
+    @include pseudo-element;
+    @include striped-bg;
+    z-index: -2;
+}
+
 // ANCHOR Main and Main Grid
 
 #main__grid-daily {
-    // Grid
+    // Position
+    transform: translate(-100vw, 0);
+    transition: transform 1s ease-out;
     height: 100%;
-    width: 100%;
+    width: 75%;
+    position: absolute;
+    // Grid
     display: grid;
-    grid-template-rows: [header] 3fr [name] 2fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: [header] 3fr [cityName] 2fr [date] 1fr 1fr 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
     #weatherDate {
-
+        grid-row: date;
+        grid-column: 2 / span 3;
     }
 
     #weatherLocation {
-        background-color: red;
-        grid-row: 2;
+        // Style
+        font-size: 3em;
+        // Position
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        //Grid
+        grid-row: cityName;
         grid-column: 2 / span 3;
     }
 
@@ -247,16 +315,71 @@ footer {
     }
 
     #weatherHumidity {
-
+        grid-row: 5;
+        grid-column: 2;
     }
 
     #weatherWindSpeed {
-
+        grid-row: 5;
+        grid-column: 3;
     }
 
     #weatherUVI {
+        grid-row: 5;
+        grid-column: 4;
+    }
+}
+
+#main__grid-weekly {
+    // Grid
+    position: absolute;
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: 0.5fr [day1] 1fr [day2] 1fr [day3] 1fr [day4] 1fr [day5] 1fr 0.5fr;
+    // Position
+    height: 100%;
+    width: 90%;
+    transform: translate(100vw, 0);
+    transition: transform 1s ease-out;
+
+    .grid-weeklyDay {
+        // Style
+        border-left: 1px dotted black;
+        // Grid
+        display: grid;
+    }
+
+    #weeklyDay1 {
+        grid-column: day1;
+    }
+
+    #weeklyDay2 {
+        grid-column: day2;
 
     }
+
+    #weeklyDay3 {
+        grid-column: day3;
+
+    }
+
+    #weeklyDay4 {
+        grid-column: day4;
+
+    }
+
+    #weeklyDay5 {
+        grid-column: day5;
+
+    }
+}
+
+#main__grid-weekly.main-active {
+    transform:translate(0);
+}
+
+#main__grid-daily.main-active {
+    transform:translate(0);
 }
 
 // ANCHOR Styling

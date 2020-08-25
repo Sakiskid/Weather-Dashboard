@@ -26,3 +26,4 @@
 - Formatting and layout of stylesheet
 - Single line if statements dont need squigly brackets
 - Better to use `top` instead of `height` for the locationRadioWrappers, because I wanted them to come up like tabs.
+- Used sass mixin for pseudoelements

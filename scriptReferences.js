@@ -11,6 +11,7 @@ var newLocationInputEl = document.getElementById("newLocationInput");
 var mainBackgroundImg = document.getElementById("mainBackgroundImg");
 var locationSelection = document.getElementById("locationSelection"); // The buttons for selecting location
 
+var currentLocation;
 
 // Local Storage Location Object
 
@@ -24,7 +25,7 @@ var locationObjectTemplate = {
 }
 
 // String for saving IDs onto the location tabs
-var locationIDstring = "locationTab";
+// var locationIDstring = "locationTab";
 
 // ANCHOR Variables (ints and such)
 

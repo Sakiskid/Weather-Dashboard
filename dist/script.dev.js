@@ -56,22 +56,20 @@ function addNewLocation(newLocation) {
 
 function changeCurrentLocation(newLocationName) {
   // Get Location, then set lat and lon for the coordsQuery.
-  var location;
-
   for (var i = 0; i < savedLocations.length; i++) {
     // Look for the respective location object
     if (savedLocations[i].Name === newLocationName) {
-      location = savedLocations[i];
+      currentLocation = savedLocations[i];
     }
   }
 
-  var lat = location.Latitude;
-  var lon = location.Longitude; // Checked class handling for css styling
+  var lat = currentLocation.Latitude;
+  var lon = currentLocation.Longitude; // Checked class handling for css styling
 
   $(".locationRadioWrapper").removeClass("checked");
-  $("#location-" + location.Name).addClass("checked"); // Queries
+  $("#location-" + currentLocation.Name).addClass("checked"); // Queries
 
-  makeUnsplashQuery(location.Name);
+  makeUnsplashQuery(currentLocation.Name);
   makeWeatherQueryWithCoords(lat, lon);
 }
 
@@ -137,21 +135,30 @@ function displayCurrentWeatherInfo(src) {
   // Temp, City Name, Date, Weather Icon, Humidity, Wind Speed, UV Index (with color code)
   console.log(src);
   var main = src.current.weather[0].main;
+  var location = currentLocation.Name + ", " + currentLocation.Country;
+  var date = src.current.dt;
   var iconID = src.current.weather[0].icon;
   var iconURL = "http://openweathermap.org/img/wn/" + iconID + "@4x.png";
   var temp = Math.floor(src.current.temp);
   var humidity = src.current.humidity;
   var windSpeed = src.current.wind_speed;
   var uvi = src.current.uvi;
-  $("#weatherDate span").text(); //TODO add date here
+  $("#weatherDate span").text(getTimestampFromUnixTime(date)); //TODO add date here
 
-  $("#weatherLocation span").text(); //TODO add location
+  $("#weatherLocation span").text(location); //TODO add location
 
   $("#weatherTemperature span").text(temp + "°");
   $("#weatherIcon").attr("src", iconURL).attr("alt", main);
   $("#weatherHumidity span").text(humidity);
   $("#weatherWindSpeed span").text(windSpeed);
   $("#weatherUVI span").text(uvi);
+}
+
+function getTimestampFromUnixTime(time) {
+  var timeVar = time * 1000; // Convert to milliseconds
+
+  var dateObject = new Date(timeVar);
+  return dateObject.toLocaleString();
 }
 
 function displayFiveDayWeatherInfo(src) {
@@ -165,6 +172,11 @@ function displayFiveDayWeatherInfo(src) {
 function displayCountryFlagOnLocationTab(tab, country) {
   var flag = "url('https://www.countryflags.io/" + country + "/flat/64.png')";
   $(tab).css("background-image", flag);
+}
+
+function toggleDayView() {
+  $("#main__grid-daily").toggleClass("main-active");
+  $("#main__grid-weekly").toggleClass("main-active");
 } // ANCHOR Event Listeners
 // When Enter is pressed on the input
 

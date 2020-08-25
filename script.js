@@ -50,21 +50,20 @@ function addNewLocation(newLocation) {
 
 function changeCurrentLocation (newLocationName) {
     // Get Location, then set lat and lon for the coordsQuery.
-    let location;
     for (let i = 0; i < savedLocations.length; i++) { // Look for the respective location object
         if(savedLocations[i].Name === newLocationName) { 
-            location = savedLocations[i];
+            currentLocation = savedLocations[i];
         }
     }
-    let lat = location.Latitude;
-    let lon = location.Longitude;
+    let lat = currentLocation.Latitude;
+    let lon = currentLocation.Longitude;
 
     // Checked class handling for css styling
     $(".locationRadioWrapper").removeClass("checked");
-    $("#location-"+ location.Name).addClass("checked");
+    $("#location-"+ currentLocation.Name).addClass("checked");
 
     // Queries
-    makeUnsplashQuery(location.Name);
+    makeUnsplashQuery(currentLocation.Name);
     makeWeatherQueryWithCoords(lat, lon);
 }
 
@@ -107,6 +106,7 @@ function createNewLocationUsingWeatherQuery(query) {
         addNewLocation(newLocation);
     }).fail(function () {
         console.log("getCoordsUsingWeatherQuery FAILED!");
+        
     });
 }
 
@@ -134,6 +134,8 @@ function displayCurrentWeatherInfo(src) {
     console.log(src);
 
     let main = src.current.weather[0].main;
+    let location = currentLocation.Name + ", " + currentLocation.Country;
+    let date = src.current.dt;
     let iconID = src.current.weather[0].icon;
     let iconURL = "http://openweathermap.org/img/wn/" + iconID + "@4x.png";
     let temp = Math.floor(src.current.temp);
@@ -141,13 +143,20 @@ function displayCurrentWeatherInfo(src) {
     let windSpeed = src.current.wind_speed;
     let uvi = src.current.uvi;
 
-    $("#weatherDate span").text(); //TODO add date here
-    $("#weatherLocation span").text(); //TODO add location
+    $("#weatherDate span").text(getTimestampFromUnixTime(date)); //TODO add date here
+    $("#weatherLocation span").text(location); //TODO add location
     $("#weatherTemperature span").text(temp + "°");
     $("#weatherIcon").attr("src", iconURL).attr("alt", main);
     $("#weatherHumidity span").text(humidity);
     $("#weatherWindSpeed span").text(windSpeed);
     $("#weatherUVI span").text(uvi);
+}
+
+function getTimestampFromUnixTime(time) {
+    let timeVar = time * 1000; // Convert to milliseconds
+    let dateObject = new Date(timeVar);
+    
+    return dateObject.toLocaleString();
 }
 
 function displayFiveDayWeatherInfo(src) {
@@ -158,6 +167,11 @@ function displayFiveDayWeatherInfo(src) {
 function displayCountryFlagOnLocationTab(tab, country){
     let flag = "url('https://www.countryflags.io/" + country + "/flat/64.png')"
     $(tab).css("background-image", flag);
+}
+
+function toggleDayView(){
+    $("#main__grid-daily").toggleClass("main-active");
+    $("#main__grid-weekly").toggleClass("main-active");
 }
 
 // ANCHOR Event Listeners

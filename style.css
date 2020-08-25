@@ -4,9 +4,9 @@ header {
   font-weight: 200;
   opacity: 50%;
   color: #E6EFFF;
-  display: flex;
   height: 100%;
   align-items: center;
+  display: flex;
   grid-row: 1;
   grid-column: span 12;
 }
@@ -20,10 +20,26 @@ nav {
 main {
   background-color: rgba(119, 193, 230, 0.5);
   border-radius: 20px;
-  margin: 10px 10px;
+  border: 2px inset #181436;
   position: relative;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  margin: 10px 10px;
   grid-row: 2/span 8;
   grid-column: 2/span 10;
+}
+
+main:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  background-image: url(./Assets/bg.jpg);
+  opacity: 0.5;
 }
 
 footer {
@@ -49,8 +65,9 @@ footer {
   width: 105%;
   z-index: -5;
   left: -2%;
-  filter: blur(8px);
-  -webkit-filter: blur(8px);
+  object-fit: cover;
+  filter: blur(6px);
+  -webkit-filter: blur(6px);
   background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -67,12 +84,25 @@ footer {
 
 #locationSelection {
   display: flex;
+  position: relative;
   text-align: center;
   justify-content: center;
   align-items: flex-end;
   background-color: rgba(255, 255, 255, 0);
   grid-row: selection;
   height: 100%;
+}
+
+#locationSelection::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  border-bottom: 2px solid #021D40;
+  top: -2px;
 }
 
 .locationRadioWrapper {
@@ -82,7 +112,7 @@ footer {
   font-family: "Roboto Slab", serif;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  border: 2px solid black;
+  border: 2px solid #021D40;
   border-bottom: 0px;
   position: relative;
   padding: 5px 5px 0px 5px;
@@ -106,10 +136,22 @@ footer {
   font-size: 0.6em;
   font-weight: bolder;
   z-index: -1;
-  background-color: #CACBE0;
   border: none;
   border-top: 2px solid black;
   text-align: center;
+}
+.locationRadioWrapper button::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  background-image: url(./Assets/bg.jpg);
+  background-attachment: fixed;
+  opacity: 0.5;
+  z-index: -1;
 }
 
 .locationRadioWrapper::before {
@@ -121,7 +163,7 @@ footer {
   left: 0;
   border-radius: inherit;
   background-color: rgba(255, 255, 255, 0.7);
-  z-index: -1;
+  z-index: -2;
 }
 
 .locationRadioWrapper.checked {
@@ -130,45 +172,92 @@ footer {
 }
 
 #locationInputDiv {
-  display: flex;
+  position: relative;
   grid-row: input;
-  background-color: #cacbe0;
-  text-align: center;
+  display: flex;
+  z-index: 5;
   justify-content: center;
   align-items: center;
-  z-index: 5;
+  text-align: center;
+  background-color: #cacbe0;
+}
+#locationInputDiv input {
+  border: 2px ridge #021D40;
+}
+
+#locationInputDiv::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  background-image: url(./Assets/bg.jpg);
+  background-attachment: fixed;
+  opacity: 0.5;
+  z-index: -2;
 }
 
 #locationSearchType {
-  display: flex;
   grid-row: search-options;
-  background-color: #cacbe0;
+  position: relative;
+  display: flex;
+  z-index: 5;
   justify-content: center;
   align-items: center;
+  background-color: #cacbe0;
 }
 #locationSearchType input {
   display: none;
 }
 #locationSearchType label {
-  border-radius: 10px;
   padding: 5px;
   margin: 0 5px;
-  background-color: #1018C2;
+  border-radius: 10px;
+  border: 2px ridge #021D40;
+  background-color: #77C1E6;
+  transition: background-color 0.5s ease-out;
+  color: #181436;
 }
 #locationSearchType input:checked ~ label {
   background-color: #EBD686;
 }
 
-#main__grid-daily {
-  height: 100%;
+#locationSearchType::after {
+  position: absolute;
+  content: "";
   width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  background-image: url(./Assets/bg.jpg);
+  background-attachment: fixed;
+  opacity: 0.5;
+  z-index: -2;
+}
+
+#main__grid-daily {
+  transform: translate(-100vw, 0);
+  transition: transform 1s ease-out;
+  height: 100%;
+  width: 75%;
+  position: absolute;
   display: grid;
-  grid-template-rows: [header] 3fr [name] 2fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: [header] 3fr [cityName] 2fr [date] 1fr 1fr 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
+#main__grid-daily #weatherDate {
+  grid-row: date;
+  grid-column: 2/span 3;
+}
 #main__grid-daily #weatherLocation {
-  background-color: red;
-  grid-row: 2;
+  font-size: 3em;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  grid-row: cityName;
   grid-column: 2/span 3;
 }
 #main__grid-daily #weatherTemperature {
@@ -183,6 +272,57 @@ footer {
 #main__grid-daily #weatherIcon {
   grid-column: 4;
 }
+#main__grid-daily #weatherHumidity {
+  grid-row: 5;
+  grid-column: 2;
+}
+#main__grid-daily #weatherWindSpeed {
+  grid-row: 5;
+  grid-column: 3;
+}
+#main__grid-daily #weatherUVI {
+  grid-row: 5;
+  grid-column: 4;
+}
+
+#main__grid-weekly {
+  position: absolute;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 0.5fr [day1] 1fr [day2] 1fr [day3] 1fr [day4] 1fr [day5] 1fr 0.5fr;
+  height: 100%;
+  width: 90%;
+  transform: translate(100vw, 0);
+  transition: transform 1s ease-out;
+}
+#main__grid-weekly .grid-weeklyDay {
+  border-left: 1px dotted black;
+  display: grid;
+}
+#main__grid-weekly #weeklyDay1 {
+  grid-column: day1;
+}
+#main__grid-weekly #weeklyDay2 {
+  grid-column: day2;
+}
+#main__grid-weekly #weeklyDay3 {
+  grid-column: day3;
+}
+#main__grid-weekly #weeklyDay4 {
+  grid-column: day4;
+}
+#main__grid-weekly #weeklyDay5 {
+  grid-column: day5;
+}
+
+#main__grid-weekly.main-active {
+  transform: translate(0);
+}
+
+#main__grid-daily.main-active {
+  transform: translate(0);
+}
+
 h1 {
   font-size: 5vw;
   width: 100%;
