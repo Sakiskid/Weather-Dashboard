@@ -279,10 +279,14 @@ footer {
     position: absolute;
     // Grid
     display: grid;
-    grid-template-rows: [header] 3fr [cityName] 2fr [date] 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: [cityName] 1fr [date] 1fr [header] 3fr 1fr 2fr 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
     #weatherDate {
+        // Style
+        font-size: 3vw; // Magic number to fit in container
+        text-align: center;
+        // Grid
         grid-row: date;
         grid-column: 2 / span 3;
     }
@@ -300,7 +304,7 @@ footer {
     }
 
     #weatherTemperature {
-        grid-row: 1;
+        grid-row: header;
         grid-column: 2 / span 2;
         // Style
         display: flex;
@@ -311,21 +315,33 @@ footer {
     }
 
     #weatherIcon {
+        align-self: center;
+        width: 100%;
         grid-column: 4;
     }
 
-    #weatherHumidity {
+    // Holds the secondary or extra info (humidity, wind speed, uvi) for daily
+    .daily-extra {
+        // Grid
         grid-row: 5;
+        // Style
+        font-size: 2vw;
+        text-align: center;
+
+        span {
+            font-size: 3vw;
+        }
+    }
+
+    #weatherHumidity {
         grid-column: 2;
     }
 
     #weatherWindSpeed {
-        grid-row: 5;
         grid-column: 3;
     }
 
     #weatherUVI {
-        grid-row: 5;
         grid-column: 4;
     }
 }

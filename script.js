@@ -134,29 +134,35 @@ function displayCurrentWeatherInfo(src) {
     console.log(src);
 
     let main = src.current.weather[0].main;
+
     let location = currentLocation.Name + ", " + currentLocation.Country;
+    $("#weatherLocation span").text(location); //TODO add location
+
     let date = src.current.dt;
+    $("#weatherDate span").text(getTimestampFromUnixTime(date)); //TODO add date here
+
     let iconID = src.current.weather[0].icon;
     let iconURL = "http://openweathermap.org/img/wn/" + iconID + "@4x.png";
-    let temp = Math.floor(src.current.temp);
-    let humidity = src.current.humidity;
-    let windSpeed = src.current.wind_speed;
-    let uvi = src.current.uvi;
-
-    $("#weatherDate span").text(getTimestampFromUnixTime(date)); //TODO add date here
-    $("#weatherLocation span").text(location); //TODO add location
-    $("#weatherTemperature span").text(temp + "°");
     $("#weatherIcon").attr("src", iconURL).attr("alt", main);
+
+    let temp = Math.floor(src.current.temp);
+    $("#weatherTemperature span").text(temp + "°");
+
+    let humidity = src.current.humidity;
     $("#weatherHumidity span").text(humidity);
+
+    let windSpeed = src.current.wind_speed;
     $("#weatherWindSpeed span").text(windSpeed);
+
+    let uvi = src.current.uvi;
     $("#weatherUVI span").text(uvi);
 }
 
 function getTimestampFromUnixTime(time) {
-    let timeVar = time * 1000; // Convert to milliseconds
-    let dateObject = new Date(timeVar);
+    let dateObject = new Date(time * 1000); // Convert to milliseconds
+    let dateFormat = dateObject.toLocaleString("en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
     
-    return dateObject.toLocaleString();
+    return dateFormat;
 }
 
 function displayFiveDayWeatherInfo(src) {

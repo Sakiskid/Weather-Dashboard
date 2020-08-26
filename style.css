@@ -245,10 +245,12 @@ footer {
   width: 75%;
   position: absolute;
   display: grid;
-  grid-template-rows: [header] 3fr [cityName] 2fr [date] 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: [cityName] 1fr [date] 1fr [header] 3fr 1fr 2fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 }
 #main__grid-daily #weatherDate {
+  font-size: 3vw;
+  text-align: center;
   grid-row: date;
   grid-column: 2/span 3;
 }
@@ -261,7 +263,7 @@ footer {
   grid-column: 2/span 3;
 }
 #main__grid-daily #weatherTemperature {
-  grid-row: 1;
+  grid-row: header;
   grid-column: 2/span 2;
   display: flex;
   font-size: 15vw;
@@ -270,18 +272,25 @@ footer {
   align-items: center;
 }
 #main__grid-daily #weatherIcon {
+  align-self: center;
+  width: 100%;
   grid-column: 4;
 }
-#main__grid-daily #weatherHumidity {
+#main__grid-daily .daily-extra {
   grid-row: 5;
+  font-size: 2vw;
+  text-align: center;
+}
+#main__grid-daily .daily-extra span {
+  font-size: 3vw;
+}
+#main__grid-daily #weatherHumidity {
   grid-column: 2;
 }
 #main__grid-daily #weatherWindSpeed {
-  grid-row: 5;
   grid-column: 3;
 }
 #main__grid-daily #weatherUVI {
-  grid-row: 5;
   grid-column: 4;
 }
 

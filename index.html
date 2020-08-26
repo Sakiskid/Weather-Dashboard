@@ -25,13 +25,19 @@
     <!-- Main, Weather Info -->
     <main>
       <div id="main__grid-daily" class="main-active">
-        <h2 id="weatherLocation"><span></span></h2>
-        <h2 id="weatherDate">Date: <span></span></h2>
-        <h2 id="weatherTemperature"><span></span></h2>
+        <h2 id="weatherLocation">
+          <span></span></h2>
+        <h2 id="weatherDate">
+          <span></span></h2>
+        <h2 id="weatherTemperature">
+          <span></span></h2>
         <img src="" alt="" id="weatherIcon">
-        <h2 id="weatherHumidity">Humidity: <span></span></h2>
-        <h2 id="weatherWindSpeed">Wind Speed: <span></span></h2>
-        <h2 id="weatherUVI">UV Index: <span></span></h2>
+        <h2 id="weatherHumidity" class="daily-extra">Humidity
+          <br><span></span></h2>
+        <h2 id="weatherWindSpeed" class="daily-extra">Wind Speed: 
+          <br><span></span></h2>
+        <h2 id="weatherUVI" class="daily-extra">UV Index: 
+          <br><span></span></h2>
         <button onclick="toggleDayView()">switch to week view</button>
       </div>
       <div id="main__grid-weekly">
