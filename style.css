@@ -154,22 +154,6 @@ footer {
   z-index: -1;
   pointer-events: none;
 }
-.locationRadioWrapper button:after {
-  position: absolute;
-  content: "";
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  transition: background-color 1s;
-  background-color: rgba(235, 214, 134, 0);
-}
-.locationRadioWrapper button:active:after {
-  transition: background-color 0s;
-  background-color: #ebd686;
-  visibility: hidden;
-}
 
 .locationRadioWrapper::before {
   position: absolute;
@@ -329,9 +313,25 @@ footer {
   transform: translate(100vw, 0);
   transition: transform 1s ease-out;
 }
+#main__grid-weekly button {
+  grid-row: 1;
+  height: 30%;
+  margin-right: 20%;
+  align-self: center;
+}
 #main__grid-weekly .grid-weeklyDay {
   border-left: 1px dotted black;
+  text-align: center;
   display: grid;
+}
+#main__grid-weekly .weekly-date {
+  font-size: 4vw;
+}
+#main__grid-weekly .weekly-temp {
+  font-size: 4vw;
+}
+#main__grid-weekly .weekly-humidity {
+  font-size: 3.5vw;
 }
 #main__grid-weekly #weeklyDay1 {
   grid-column: day1;

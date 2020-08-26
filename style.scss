@@ -127,6 +127,7 @@ footer {
     width: 100%;
 }
 
+// TODO fix responsiveness on small screen with locationselection
 #locationSelection {
     // Style
     display: flex;
@@ -196,19 +197,6 @@ footer {
         @include striped-bg;
         z-index: -1;
         pointer-events: none;
-    }
-    
-    button:after {
-        @include pseudo-element;
-        transition: background-color 1s;
-        background-color: rgba($color: $color-sun, $alpha: 0.0);
-    }
-    
-    button:active:after {
-        transition: background-color 0s;
-        background-color: rgba($color: $color-sun, $alpha: 1.0);
-        visibility: hidden;
-        // animation: button-confirm 0.15s linear 2 alternate;
     }
 }
 
@@ -384,11 +372,35 @@ footer {
     transform: translate(100vw, 0);
     transition: transform 1s ease-out;
 
+    button {
+        grid-row: 1;
+        height: 30%;
+        margin-right: 20%;
+        align-self: center;
+    }
+
     .grid-weeklyDay {
         // Style
         border-left: 1px dotted black;
+        text-align: center;
         // Grid
         display: grid;
+    }
+
+    .weekly-date {
+        font-size: 4vw;
+    }
+
+    .weekly-icon {
+
+    }
+
+    .weekly-temp {
+        font-size: 4vw;
+    }
+
+    .weekly-humidity {
+        font-size: 3.5vw;
     }
 
     #weeklyDay1 {
