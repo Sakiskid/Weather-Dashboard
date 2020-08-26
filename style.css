@@ -140,7 +140,7 @@ footer {
   border-top: 2px solid black;
   text-align: center;
 }
-.locationRadioWrapper button::before {
+.locationRadioWrapper button:before {
   position: absolute;
   content: "";
   width: 100%;
@@ -152,6 +152,23 @@ footer {
   background-attachment: fixed;
   opacity: 0.5;
   z-index: -1;
+  pointer-events: none;
+}
+.locationRadioWrapper button:after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  transition: background-color 1s;
+  background-color: rgba(235, 214, 134, 0);
+}
+.locationRadioWrapper button:active:after {
+  transition: background-color 0s;
+  background-color: #ebd686;
+  visibility: hidden;
 }
 
 .locationRadioWrapper::before {
@@ -245,8 +262,8 @@ footer {
   width: 75%;
   position: absolute;
   display: grid;
-  grid-template-rows: [cityName] 1fr [date] 1fr [header] 3fr 1fr 2fr 1fr;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: [cityName] 1fr [date] 1fr [header] 3fr 1fr 2fr [end] 1fr;
+  grid-template-columns: [start] 1fr 1fr 1fr 1fr 1fr [end];
 }
 #main__grid-daily #weatherDate {
   font-size: 3vw;
@@ -293,6 +310,14 @@ footer {
 #main__grid-daily #weatherUVI {
   grid-column: 4;
 }
+#main__grid-daily button {
+  grid-row: end;
+  grid-column: 2/span 3;
+  border-radius: 15px;
+  font-size: 3vw;
+  font-family: "Alata", sans-serif;
+  margin-bottom: 15px;
+}
 
 #main__grid-weekly {
   position: absolute;
@@ -336,4 +361,13 @@ h1 {
   font-size: 5vw;
   width: 100%;
   text-align: center;
+}
+
+@keyframes button-confirm {
+  0% {
+    background-color: red;
+  }
+  100% {
+    background-color: #1018C2;
+  }
 }
