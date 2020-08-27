@@ -350,9 +350,15 @@ button:hover {
   border-left: 1px dotted black;
   text-align: center;
   display: grid;
+  grid-row: 1fr 1fr 1fr 1fr 1fr;
+}
+#main__grid-weekly .weekly-weekday {
+  font-size: 3.2vw;
+  font-weight: bolder;
+  padding-top: 15%;
 }
 #main__grid-weekly .weekly-date {
-  font-size: 4vw;
+  font-size: 3vw;
 }
 #main__grid-weekly .weekly-temp {
   font-size: 4vw;
@@ -374,6 +380,7 @@ button:hover {
 }
 #main__grid-weekly #weeklyDay5 {
   grid-column: day5;
+  border-right: 1px dotted black;
 }
 
 #main__grid-weekly.main-active {

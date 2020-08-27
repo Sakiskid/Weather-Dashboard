@@ -420,10 +420,17 @@ button:hover {
         text-align: center;
         // Grid
         display: grid;
+        grid-row: 1fr 1fr 1fr 1fr 1fr;
+    }
+
+    .weekly-weekday {
+        font-size: 3.2vw;
+        font-weight: bolder;
+        padding-top: 15%;
     }
 
     .weekly-date {
-        font-size: 4vw;
+        font-size: 3vw;
     }
 
     .weekly-icon {
@@ -459,7 +466,7 @@ button:hover {
 
     #weeklyDay5 {
         grid-column: day5;
-
+        border-right: 1px dotted black;
     }
 }
 
