@@ -326,7 +326,7 @@ button:hover {
         grid-column: 2 / span 2;
         // Style
         display: flex;
-        font-size: 15vw;
+        font-size: 10vw;
         text-align: center;
         justify-content: center;
         align-items: center;
@@ -395,7 +395,7 @@ button:hover {
         font-size: 3vw;
         font-family: $font-alata;
         // Layout
-        margin-bottom: 15px;
+        margin-bottom: 25px;
     }
 }
 
@@ -407,7 +407,7 @@ button:hover {
     grid-template-columns: 0.5fr [day1] 1fr [day2] 1fr [day3] 1fr [day4] 1fr [day5] 1fr 0.5fr;
     // Position
     height: 100%;
-    width: 90%;
+    width: 95%;
     transform: translate(100vw, 0);
     transition: transform 1s ease-out;
 
@@ -420,7 +420,7 @@ button:hover {
 
     .grid-weeklyDay {
         // Style
-        border-left: 1px dotted black;
+        border-left: 2px dotted black;
         text-align: center;
         // Grid
         display: grid;
@@ -434,7 +434,7 @@ button:hover {
     }
 
     .weekly-date {
-        font-size: 3vw;
+        font-size: 2vw;
     }
 
     .weekly-icon {
@@ -470,7 +470,7 @@ button:hover {
 
     #weeklyDay5 {
         grid-column: day5;
-        border-right: 1px dotted black;
+        border-right: 2px dotted black;
     }
 }
 
