@@ -10,7 +10,10 @@ var radioWrapperTemplate;
 
 // ANCHOR Initialization Functions
 function init(){
-    if(savedLocations) savedLocations = JSON.parse(getLocalStorage("savedLocations"));
+    if (getLocalStorage("savedLocations") !== "") savedLocations = JSON.parse(getLocalStorage("savedLocations"));
+    if (getLocalStorage("savedLocations") == "") {
+        $("main").css("visibility", "hidden");
+    }
     initializeElementTemplates();
     populateLocationButtons();
     loadDefaultLocation();
@@ -37,6 +40,9 @@ function populateLocationButtons(){
 function loadDefaultLocation() {
     if(localStorage.getItem("defaultLocation")) {
         changeCurrentLocation(localStorage.getItem("defaultLocation"));
+    }
+    else if (getLocalStorage("savedLocations") !== "") {
+        changeCurrentLocation(savedLocations[0].Name);
     }
 }
 
@@ -104,6 +110,7 @@ function createNewLocationUsingWeatherQuery(query) {
         newLocation.Latitude = response.coord.lat;
         newLocation.Longitude = response.coord.lon;
         addNewLocation(newLocation);
+        changeCurrentLocation(newLocation.Name);
     }).fail(function () {
         console.log("getCoordsUsingWeatherQuery FAILED!");
         

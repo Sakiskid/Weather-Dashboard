@@ -32,6 +32,10 @@ $font-roboto-slab: 'Roboto Slab', serif;
 
 // ANCHOR Base, Grid, Layout
 
+body {
+    background-color: $color-dark;
+}
+
 header {
     // Style
     background-color: $color-footer;
