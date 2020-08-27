@@ -164,7 +164,7 @@ function displayCurrentWeatherInfo() {
     $("#weatherIcon").attr("src", iconURL).attr("alt", main);
 
     let temp = Math.floor(src.current.temp);
-    $("#weatherTemperature span").text(temp + "°");
+    $("#weatherTemperature span").text(temp + "°F");
 
     let humidity = src.current.humidity;
     $("#weatherHumidity span").text(humidity);
@@ -188,11 +188,11 @@ function displayFiveDayWeatherInfo() {
     let iconEls = document.getElementsByClassName("weekly-icon");
     let humidityEls = document.getElementsByClassName("weekly-humidity");
     for (let i = 0; i < daysToDisplay; i++) {
-        $(temperatureEls[i]).text(src.daily[i].temp.day)
+        $(temperatureEls[i]).text(Math.floor(src.daily[i].temp.day) + "°F");
         $(dateEls[i]).text(getTimestampFromUnixTime(src.daily[i].dt, "date"));
         $(dayEls[i]).text(getTimestampFromUnixTime(src.daily[i].dt, "weekday"));
         $(humidityEls[i]).text(src.daily[i].humidity);
-        let iconURL = "http://openweathermap.org/img/wn/" + src.daily[i].weather[0].icon + "@2x.png";
+        let iconURL = "http://openweathermap.org/img/wn/" + src.daily[i].weather[0].icon + "@4x.png";
         $(iconEls[i]).attr("src", iconURL).attr("alt", src.daily[i].weather[0].description);
     }
 }

@@ -364,6 +364,10 @@ button:hover {
 #main__grid-weekly .weekly-date {
   font-size: 2vw;
 }
+#main__grid-weekly .weekly-icon {
+  width: 100%;
+  align-self: center;
+}
 #main__grid-weekly .weekly-temp {
   font-size: 4vw;
 }
