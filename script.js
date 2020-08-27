@@ -48,6 +48,7 @@ function loadDefaultLocation() {
 
 // ANCHOR Location Management Functions
 function addNewLocation(newLocation) {
+    $("main").css("visibility", "visible");
     // Add new location to saved locations, then set saved locations to localStorage
     savedLocations.push(newLocation);
     localStorage.setItem("savedLocations", JSON.stringify(savedLocations));
