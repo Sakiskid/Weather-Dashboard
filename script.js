@@ -170,16 +170,47 @@ function displayCurrentWeatherInfo() {
 }
 
 function displayFiveDayWeatherInfo() {
+    let daysToDisplay = 5;
     let src = currentResponse;
-    let temperature = [];
-    for(let i = 0; i < 5; i++) { temperature.push(src.daily[i].temp.day); }
-    console.log(temperature);
+
+    // Populate and Display Variables
+    let temperatureEls = document.getElementsByClassName("weekly-temp");
+    let dateEls = document.getElementsByClassName("weekly-date");
+    let dayEls = document.getElementsByClassName("weekly-weekday");
+    let iconEls = document.getElementsByClassName("weekly-icon");
+    let humidityEls = document.getElementsByClassName("weekly-humidity");
+    for (let i = 0; i < daysToDisplay; i++) {
+        $(temperatureEls[i]).text(src.daily[i].temp.day)
+        $(dateEls[i]).text(getTimestampFromUnixTime(src.daily[i].dt, "date"));
+        $(dayEls[i]).text(getTimestampFromUnixTime(src.daily[i].dt, "weekday"));
+        $(humidityEls[i]).text(src.daily[i].humidity);
+        let iconURL = "http://openweathermap.org/img/wn/" + src.daily[i].weather[0].icon + "@2x.png";
+        $(iconEls[i]).attr("src", iconURL).attr("alt", src.daily[i].weather[0].description);
+    }
 }
 
-function getTimestampFromUnixTime(time) {
-    let dateObject = new Date(time * 1000); // Convert to milliseconds
-    let dateFormat = dateObject.toLocaleString("en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
-    
+/**
+ * @param {number} time - Time in milliseconds since unix
+ * @param {string} [format] - Options: "date", "weekday", "full". Default is "full".
+ */
+function getTimestampFromUnixTime(time, format) {
+    let dateObject = new Date(time* 1000); // Convert to milliseconds, and determine which day it is
+    let dateFormat;
+    if(!format) { format = "full"; } // Set default to full.
+    switch (format) {
+        case "date":
+            dateFormat = dateObject.toLocaleString("en-US", {month: "numeric", day: "numeric", year: "numeric"});
+            break;
+        case "weekday":
+            dateFormat = dateObject.toLocaleString("en-US", {weekday: "long"});
+            break;
+        case "full":
+            dateFormat = dateObject.toLocaleString(
+                "en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
+            break;
+        default:
+            console.log("Error! getTimestampFromUnixTime didn't recognize format: ", format);
+    }
     return dateFormat;
 }
 
