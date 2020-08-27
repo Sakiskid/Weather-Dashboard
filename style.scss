@@ -90,12 +90,19 @@ footer {
     grid-column: span 12;
 }
 
+
 .container {
     // Grid
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: repeat(11, 1fr) [footer] 0.5fr;
     height: 100vh;
+}
+
+// Other Main Stuff
+
+button:hover {
+    background-color: $color-sun;
 }
 
 #mainBackgroundImg {

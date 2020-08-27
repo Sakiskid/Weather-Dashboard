@@ -118,19 +118,30 @@ function makeWeatherQueryWithCoords(lat, lon) {
         url: URL,
         method: "GET"
     }).then(function(response){
-        displayCurrentWeatherInfo(response);
+        currentResponse = response;
+        displayBasedOnCurrentWeatherView();
     });
 }
 
 // ANCHOR Display and UI
+function displayBasedOnCurrentWeatherView() {
+    if($("#main__grid-daily").hasClass("main-active")) {
+        displayCurrentWeatherInfo(currentResponse);
+    } 
+    else if ($("#main__grid-weekly").hasClass("main-active")) {
+        displayFiveDayWeatherInfo(currentResponse);
+    }
+}
+
 function displayBackgroundImage(src){
     // console.log("Setting background image to: ", src);
     $(mainBackgroundImg).attr("src", src);
 }
 
-function displayCurrentWeatherInfo(src) {
+function displayCurrentWeatherInfo() {
     // Need to display:
     // Temp, City Name, Date, Weather Icon, Humidity, Wind Speed, UV Index (with color code)
+    let src = currentResponse;
     console.log(src);
 
     let main = src.current.weather[0].main;
@@ -158,16 +169,18 @@ function displayCurrentWeatherInfo(src) {
     $("#weatherUVI span").text(uvi);
 }
 
+function displayFiveDayWeatherInfo() {
+    let src = currentResponse;
+    let temperature = [];
+    for(let i = 0; i < 5; i++) { temperature.push(src.daily[i].temp.day); }
+    console.log(temperature);
+}
+
 function getTimestampFromUnixTime(time) {
     let dateObject = new Date(time * 1000); // Convert to milliseconds
     let dateFormat = dateObject.toLocaleString("en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
     
     return dateFormat;
-}
-
-function displayFiveDayWeatherInfo(src) {
-    let temperature = [];
-    for(let i = 0; i < 5; i++) { temperature.push(src.daily[i].temp.day); }
 }
 
 function displayCountryFlagOnLocationTab(tab, country){
@@ -178,6 +191,7 @@ function displayCountryFlagOnLocationTab(tab, country){
 function toggleDayView(){
     $("#main__grid-daily").toggleClass("main-active");
     $("#main__grid-weekly").toggleClass("main-active");
+    displayBasedOnCurrentWeatherView();
 }
 
 // ANCHOR Event Listeners

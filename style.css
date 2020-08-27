@@ -59,6 +59,10 @@ footer {
   height: 100vh;
 }
 
+button:hover {
+  background-color: #EBD686;
+}
+
 #mainBackgroundImg {
   position: fixed;
   height: 105%;
