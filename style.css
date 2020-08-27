@@ -61,6 +61,7 @@ footer {
 
 button:hover {
   background-color: #EBD686;
+  cursor: pointer;
 }
 
 #mainBackgroundImg {
@@ -126,6 +127,7 @@ button:hover {
   z-index: 0;
   transition: background-color 0.5s ease-in-out;
   transition: top 0.5s ease-in-out;
+  cursor: pointer;
 }
 .locationRadioWrapper input {
   display: none;
@@ -224,6 +226,7 @@ button:hover {
   background-color: #77C1E6;
   transition: background-color 0.5s ease-out;
   color: #181436;
+  cursor: pointer;
 }
 #locationSearchType input:checked ~ label {
   background-color: #EBD686;
@@ -293,10 +296,30 @@ button:hover {
   grid-column: 2;
 }
 #main__grid-daily #weatherWindSpeed {
-  grid-column: 3;
+  grid-column: 4;
 }
 #main__grid-daily #weatherUVI {
-  grid-column: 4;
+  grid-column: 3;
+}
+#main__grid-daily #uvslider {
+  appearance: none;
+  background-size: 100%;
+  width: 100%;
+  height: 20px;
+  background-image: url(./Assets/uv-index-visual.png);
+  border: 2px inset #021D40;
+  border-radius: 10px;
+  pointer-events: none;
+}
+#main__grid-daily #uvslider::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 10%;
+  border: 2px solid #021D40;
+  border-top: none;
+  border-bottom: none;
+  border-radius: 3px;
+  left: 0;
 }
 #main__grid-daily button {
   grid-row: end;

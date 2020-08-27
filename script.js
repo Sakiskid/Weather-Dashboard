@@ -142,7 +142,6 @@ function displayCurrentWeatherInfo() {
     // Need to display:
     // Temp, City Name, Date, Weather Icon, Humidity, Wind Speed, UV Index (with color code)
     let src = currentResponse;
-    console.log(src);
 
     let main = src.current.weather[0].main;
 
@@ -166,6 +165,7 @@ function displayCurrentWeatherInfo() {
     $("#weatherWindSpeed span").text(windSpeed);
 
     let uvi = src.current.uvi;
+    updateUVIndexDisplay();
     $("#weatherUVI span").text(uvi);
 }
 
@@ -187,6 +187,10 @@ function displayFiveDayWeatherInfo() {
         let iconURL = "http://openweathermap.org/img/wn/" + src.daily[i].weather[0].icon + "@2x.png";
         $(iconEls[i]).attr("src", iconURL).attr("alt", src.daily[i].weather[0].description);
     }
+}
+
+function updateUVIndexDisplay() {
+    $("#uvslider").val(Math.floor(currentResponse.current.uvi));
 }
 
 /**

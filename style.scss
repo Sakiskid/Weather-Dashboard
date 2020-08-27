@@ -103,6 +103,7 @@ footer {
 
 button:hover {
     background-color: $color-sun;
+    cursor: pointer;
 }
 
 #mainBackgroundImg {
@@ -177,6 +178,7 @@ button:hover {
     // Other
     transition: background-color .5s ease-in-out;
     transition: top .5s ease-in-out;
+    cursor: pointer;
 
     input {
         display: none;
@@ -264,7 +266,9 @@ button:hover {
         border: 2px ridge $color-footer;
         background-color: $color-sky;
         transition: background-color 0.5s ease-out;
-        color: $color-dark;
+        color: $color-dark;    
+        //Other
+        cursor: pointer;
     }
 
     input:checked ~ label {
@@ -348,11 +352,35 @@ button:hover {
     }
 
     #weatherWindSpeed {
-        grid-column: 3;
+        grid-column: 4;
     }
 
     #weatherUVI {
-        grid-column: 4;
+        grid-column: 3;
+    }
+
+    #uvslider {
+        // Layout
+        appearance: none;
+        background-size: 100%;
+        width: 100%;
+        height: 20px;
+        // Style
+        background-image: url(./Assets/uv-index-visual.png);
+        border: 2px inset $color-footer;
+        border-radius: 10px;
+        pointer-events: none;
+    }
+
+    #uvslider::-webkit-slider-thumb {
+        appearance: none;
+        height: 20px;
+        width: 10%;
+        border: 2px solid $color-footer;
+        border-top: none;
+        border-bottom: none;
+        border-radius: 3px;
+        left: 0;
     }
 
     button {

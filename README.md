@@ -16,6 +16,7 @@
 - Flags of country
 - Custom Images
 - Search Types
+- UV Index is measured from standard 0 - 11. Being summer, most UVI are higher (global warming is real)
 
 ## Execution:
 
